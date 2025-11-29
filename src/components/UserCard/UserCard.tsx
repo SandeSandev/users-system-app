@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import styles from "./UserCard.module.css";
 import userImg from "../../assets/user.png";
+import { Button } from "../Button/Button";
 
 interface UserCardProps {
   img?: string;
@@ -51,7 +52,9 @@ export const UserCard: React.FC<UserCardProps> = ({
               <p>{addressCity}</p>
             </div>
 
-            <button onClick={() => setIsEditing(true)}>Edit</button>
+            <Button variant="primary" onClick={() => setIsEditing(true)}>
+              Edit
+            </Button>
           </>
         ) : (
           <Formik
@@ -95,10 +98,16 @@ export const UserCard: React.FC<UserCardProps> = ({
                 </div>
 
                 <div className={styles["buttons"]}>
-                  <button type="submit">Save</button>
-                  <button type="button" onClick={() => setIsEditing(false)}>
+                  <Button variant="primary" type="submit">
+                    Save
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="primary"
+                    onClick={() => setIsEditing(false)}
+                  >
                     Cancel
-                  </button>
+                  </Button>
                 </div>
               </Form>
             )}

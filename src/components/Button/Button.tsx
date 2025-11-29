@@ -4,22 +4,22 @@ import cn from "classnames";
 
 interface ButtonProps {
   variant: "primary" | "outline";
-  size: "sm" | "md" | "lg";
-  type: "button" | "submit";
-  className: string;
-  onClick: () => void;
+  size?: "sm" | "md" | "lg";
+  type?: "button" | "submit";
+  className?: string;
+  onClick?: () => void;
   children: ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   variant,
-  size,
+  size = "md",
   type = "button",
   onClick,
   className,
   children,
-  disabled,
+  disabled = false,
   ...props
 }) => {
   const classes = cn(

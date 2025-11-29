@@ -22,7 +22,8 @@ const Users: React.FC = () => {
             addressCity="Test"
             addressStreet="test"
             addressSuite="test"
-          ></UserCard>        </AccordionItem>
+          ></UserCard>
+        </AccordionItem>
       </Accordion>
     </>
   );
