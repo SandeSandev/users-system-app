@@ -1,0 +1,64 @@
+.user-card {
+  display: flex;
+  gap: 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.08);
+  align-items: center;
+}
+
+.user-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  margin-bottom: 4px;
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.field label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #444;
+}
+
+.field p {
+  margin: 0;
+  color: #222;
+}
+
+.field input {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.field input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.buttons button {
+  padding: 6px 12px;
+  border-radius: 6px;
+}

@@ -1,3 +1,9 @@
-.accordion-item-header{
-    display: flex;
+.accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordion-item-header {
+  display: flex;
+  flex: 1;
 }
