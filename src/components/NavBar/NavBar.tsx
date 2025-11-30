@@ -17,9 +17,6 @@ export const NavBar: React.FC = () => {
           <Link to={"/users"}>Users </Link>
         </li>
         <li className={styles["item"]}>
-          <Link to="/posts"> Posts</Link>
-        </li>
-        <li className={styles["item"]}>
           <Link to="/tasks">Tasks </Link>
         </li>
       </ul>

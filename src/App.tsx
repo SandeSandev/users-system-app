@@ -7,7 +7,7 @@ import { store } from "./store/slices/store";
 function App() {
   return (
     <Provider store={store}>
-      <RouterProvider router={routes}></RouterProvider>;
+      <RouterProvider router={routes}></RouterProvider>
     </Provider>
   );
 }

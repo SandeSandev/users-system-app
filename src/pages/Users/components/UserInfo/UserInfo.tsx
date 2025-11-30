@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import styles from "./UserCard.module.css";
-import userImg from "../../assets/user.png";
-import { Button } from "../Button/Button";
+import styles from "./UserInfo.module.css";
+import userImg from "../../../../assets/user.png";
+import { Link } from "react-router-dom";
+import { Card } from "../../../../components/Card";
+import { Button } from "../../../../components/Button";
 
 interface UserCardProps {
+  userId: string;
   img?: string;
   userName: string;
   email: string;
@@ -13,7 +16,8 @@ interface UserCardProps {
   addressCity: string;
 }
 
-export const UserCard: React.FC<UserCardProps> = ({
+export const UserInfo: React.FC<UserCardProps> = ({
+  userId,
   img = userImg,
   userName,
   email,
@@ -24,7 +28,7 @@ export const UserCard: React.FC<UserCardProps> = ({
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <div className={styles["user-card"]}>
+    <Card>
       <img src={img} height={190} width={190} />
 
       <div className={styles["user-card-content"]}>
@@ -55,6 +59,7 @@ export const UserCard: React.FC<UserCardProps> = ({
             <Button variant="primary" onClick={() => setIsEditing(true)}>
               Edit
             </Button>
+            <Link to={'/posts/'+ userId }> See posts </Link>
           </>
         ) : (
           <Formik
@@ -114,6 +119,6 @@ export const UserCard: React.FC<UserCardProps> = ({
           </Formik>
         )}
       </div>
-    </div>
+    </Card>
   );
 };

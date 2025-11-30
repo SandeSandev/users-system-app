@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Users from "../pages/Users";
-import Posts from "../pages/Posts";
 import Tasks from "../pages/Tasks";
 import { Layout } from "../components/Layout/Layout";
+import Users from "../pages/Users/Users";
+import Posts from "../pages/Posts/Posts";
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -16,7 +16,7 @@ export const routes = createBrowserRouter([
         path: "users",
         element: <Users />,
       },
-      { path: "posts", element: <Posts /> },
+      { path: "posts/:userId", element: <Posts /> },
       { path: "tasks", element: <Tasks /> },
     ],
   },
