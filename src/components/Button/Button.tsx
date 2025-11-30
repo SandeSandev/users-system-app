@@ -3,13 +3,15 @@ import styles from "./Button.module.css";
 import cn from "classnames";
 
 interface ButtonProps {
-  variant: "primary" | "outline";
+  variant: "primary" | "outline" | "outline-primary" | "transparent-dark";
   size?: "sm" | "md" | "lg";
   type?: "button" | "submit";
   className?: string;
   onClick?: () => void;
-  children: ReactNode;
+  children?: ReactNode;
   disabled?: boolean;
+  icon?: React.ReactElement;
+  iconPosition?: "left" | "right";
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -20,14 +22,16 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   children,
   disabled = false,
+  icon,
+  iconPosition = "left",
   ...props
 }) => {
   const classes = cn(
     styles.btn,
-    variant === "primary" && styles["btn-primary"],
-    size === "sm" && styles['btn-sm'],
-    size === "md" && styles['btn-md'],
-    size === "lg" && styles['btn-lg'],
+    styles[`btn-${variant}`],
+    styles[`btn-${size}`],
+
+    icon && styles["btn-with-icon"],
     className
   );
   return (
@@ -38,7 +42,9 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       {...props}
     >
-      {children}
+      {icon && iconPosition === "left" && icon}
+      <span>{children}</span>
+      {icon && iconPosition === "right" && icon}
     </button>
   );
 };

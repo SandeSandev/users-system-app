@@ -1,3 +1,6 @@
+import { ArrowDownIcon } from "../../Icons/ArrowDownIcon";
+import ArrowUpIcon from "../../Icons/ArrowUpIcon";
+import { Button } from "../Button";
 import { useAccordionContentContext } from "./useAccordionContext";
 
 interface AccordItemToggleButtonProps {
@@ -7,12 +10,16 @@ interface AccordItemToggleButtonProps {
 export const AccordItemToggleButton: React.FC<AccordItemToggleButtonProps> = ({
   rowId,
 }) => {
-  const { toggleAccordionRow } = useAccordionContentContext();
-
+  const { toggleAccordionRow, isRowExpanded } = useAccordionContentContext();
 
   return (
-    <button type="button" onClick={() => toggleAccordionRow(rowId)}>
-      click
-    </button>
+
+    <Button
+      type="button"
+      variant="transparent-dark"
+      size="sm"
+      onClick={() => toggleAccordionRow(rowId)}
+      icon={isRowExpanded(rowId) ? <ArrowUpIcon /> : <ArrowDownIcon />}
+    />
   );
 };

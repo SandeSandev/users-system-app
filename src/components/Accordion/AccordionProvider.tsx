@@ -20,7 +20,7 @@ export const AccordionContentProvider: React.FC<AccordionProviderProps> = ({
           : [...prevState, id]
       );
     } else {
-      setActiveRowIds([id]);
+      setActiveRowIds((prevState) => (prevState[0] === id ? [] : [id]));
     }
   };
 
