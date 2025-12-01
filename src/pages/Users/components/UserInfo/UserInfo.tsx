@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import styles from "./UserInfo.module.css";
 import userImg from "../../../../assets/user.png";
-import { Link } from "react-router-dom";
 import { Card } from "../../../../components/Card";
 import { Button } from "../../../../components/Button";
+import { UserField } from "./UserInfo.Field";
+import { Avatar } from "./UserInfo.Avatar";
 
 interface UserCardProps {
   userId: string;
@@ -28,38 +29,19 @@ export const UserInfo: React.FC<UserCardProps> = ({
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <Card>
-      <img src={img} height={190} width={190} />
+    <Card classes={styles["user-info"]}>
+      <Avatar userName={userName} imgUrl={img} userId={userId} />
 
-      <div className={styles["user-card-content"]}>
+      <div className={styles["user-info-content"]}>
         {!isEditing ? (
           <>
-            <h4 className={styles["title"]}>Name: {userName}</h4>
-
-            <div className={styles["field"]}>
-              <label>Email:</label>
-              <p>{email}</p>
+            <div className={styles["fields-grid"]}>
+              <UserField label="Name" value={userName} />
+              <UserField label="Email" value={email} />
+              <UserField label="Address" value={addressStreet} />
+              <UserField label="Suite" value={addressSuite} />
+              <UserField label="Suite" value={addressCity} />
             </div>
-
-            <div className={styles["field"]}>
-              <label>Address:</label>
-              <p>{addressStreet}</p>
-            </div>
-
-            <div className={styles["field"]}>
-              <label>Suite:</label>
-              <p>{addressSuite}</p>
-            </div>
-
-            <div className={styles["field"]}>
-              <label>City:</label>
-              <p>{addressCity}</p>
-            </div>
-
-            <Button variant="primary" onClick={() => setIsEditing(true)}>
-              Edit
-            </Button>
-            <Link to={'/posts/'+ userId }> See posts </Link>
           </>
         ) : (
           <Formik
@@ -77,46 +59,43 @@ export const UserInfo: React.FC<UserCardProps> = ({
           >
             {() => (
               <Form className={styles["form"]}>
-                <div className={styles["field"]}>
-                  <label>Name:</label>
-                  <Field name="userName" />
-                </div>
-
-                <div className={styles["field"]}>
-                  <label>Email:</label>
-                  <Field name="email" />
-                </div>
-
-                <div className={styles["field"]}>
-                  <label>Address:</label>
-                  <Field name="addressStreet" />
-                </div>
-
-                <div className={styles["field"]}>
-                  <label>Suite:</label>
-                  <Field name="addressSuite" />
-                </div>
-
-                <div className={styles["field"]}>
-                  <label>City:</label>
-                  <Field name="addressCity" />
-                </div>
-
-                <div className={styles["buttons"]}>
-                  <Button variant="primary" type="submit">
-                    Save
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="primary"
-                    onClick={() => setIsEditing(false)}
-                  >
-                    Cancel
-                  </Button>
+                <div className={styles["fields-grid"]}>
+                  <UserField label="name" value={userName} isEditing />
+                  <UserField label="Email" value={email} isEditing />
+                  <UserField label="Address" value={addressStreet} isEditing />
+                  <UserField label="Suite" value={addressSuite} isEditing />
+                  <UserField label="Suite" value={addressCity} isEditing />
                 </div>
               </Form>
             )}
           </Formik>
+        )}
+      </div>
+
+      <div className={styles["buttons-container"]}>
+        {!isEditing && (
+          <Button
+            variant="outline"
+            color="primary"
+            onClick={() => setIsEditing(true)}
+          >
+            Edit
+          </Button>
+        )}
+        {isEditing && (
+          <>
+            <Button variant="outline" color="primary" type="submit">
+              Save
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              color="danger"
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
+            </Button>
+          </>
         )}
       </div>
     </Card>

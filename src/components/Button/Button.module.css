@@ -1,48 +1,65 @@
 .btn {
-  border: none;
+  --btn-main: #0d6efd;
+  --btn-bg: transparent;
+  --btn-color: #fff;
+  --btn-border: transparent;
+
+  background-color: var(--btn-bg);
+  color: var(--btn-color);
+  border: 1px solid var(--btn-border);
   border-radius: 4px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  padding: 8px 14px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
 }
 
 .btn-primary {
-  background-color: #0d6efd;
-  color: #fff;
+  --btn-main: #0d6efd;
 }
 
-.btn-primary:hover {
-  background-color: #0b5ed7;
+.btn-dark {
+  --btn-main: #212529;
+}
+
+.btn-secondary {
+  --btn-main: #6c757d;
+}
+
+.btn-danger {
+  --btn-main: #dc3545;
+}
+
+.btn-normal {
+  --btn-bg: var(--btn-main);
+  --btn-color: #fff;
+  --btn-border: var(--btn-main);
 }
 
 .btn-outline {
-  background-color: transparent;
-  border: 1px solid currentColor;
-  color: currentColor;
+  --btn-bg: transparent;
+  --btn-color: var(--btn-main);
+  --btn-border: var(--btn-main);
+}
+
+.btn-transparent {
+  --btn-bg: transparent;
+  --btn-color: var(--btn-main);
+  --btn-border: transparent;
+}
+
+.btn-normal:hover {
+  opacity: 0.9;
 }
 
 .btn-outline:hover {
-  background-color: currentColor;
-  color: #fff;
+  --btn-bg: var(--btn-main);
+  --btn-color: #fff;
 }
 
-.btn-outline-primary {
-  color: #0d6efd;
-  border-color: currentColor;
-}
-
-.btn-outline-dark {
-  color: #212529;
-  border-color: currentColor;
-}
-
-.btn-transparent-dark {
-  background-color: transparent;
-  color: #212529;
-}
-
-.btn-transparent-dark:hover {
-  border: 1px solid #212529;;
+.btn-transparent:hover {
+  opacity: 0.7;
+  --btn-border: var(--btn-main);
 }
 
 .btn-sm {

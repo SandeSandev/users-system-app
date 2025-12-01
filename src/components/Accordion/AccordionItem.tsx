@@ -14,11 +14,14 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   header,
   children,
 }) => {
-  const { isRowExpanded } = useAccordionContentContext();
+  const { isRowExpanded, toggleAccordionRow } = useAccordionContentContext();
 
   return (
     <>
-      <div className={styles["accordion-item-header"]}>
+      <div
+        className={styles["accordion-item-header"]}
+        onClick={() => toggleAccordionRow(id)}
+      >
         <h3>{header}</h3>
         <AccordItemToggleButton rowId={id} />
       </div>

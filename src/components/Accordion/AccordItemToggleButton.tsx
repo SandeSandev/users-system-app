@@ -16,7 +16,8 @@ export const AccordItemToggleButton: React.FC<AccordItemToggleButtonProps> = ({
 
     <Button
       type="button"
-      variant="transparent-dark"
+      variant="transparent"
+      color="dark"
       size="sm"
       onClick={() => toggleAccordionRow(rowId)}
       icon={isRowExpanded(rowId) ? <ArrowUpIcon /> : <ArrowDownIcon />}

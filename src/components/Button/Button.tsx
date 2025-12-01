@@ -3,7 +3,8 @@ import styles from "./Button.module.css";
 import cn from "classnames";
 
 interface ButtonProps {
-  variant: "primary" | "outline" | "outline-primary" | "transparent-dark";
+  variant: "normal" | "outline" | "transparent";
+  color: "primary" | "dark" | "secondary" | "danger";
   size?: "sm" | "md" | "lg";
   type?: "button" | "submit";
   className?: string;
@@ -15,7 +16,8 @@ interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({
-  variant,
+  variant = "normal",
+  color = "primary",
   size = "md",
   type = "button",
   onClick,
@@ -28,6 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const classes = cn(
     styles.btn,
+    styles[`btn-${color}`],
     styles[`btn-${variant}`],
     styles[`btn-${size}`],
 
