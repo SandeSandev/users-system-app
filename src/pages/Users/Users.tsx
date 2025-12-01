@@ -4,7 +4,7 @@ import { useAppSelector } from "../../store/hooks/useAppSelector";
 import { fetchUsers } from "../../store/slices/users-slice";
 import { Accordion } from "../../components/Accordion";
 import { AccordionItem } from "../../components/Accordion/AccordionItem";
-import { UserInfo } from "./components/UserInfo";
+import { UserInfo } from "./UserInfo";
 
 const Users: React.FC = () => {
   const dispatch = useAppDispatch();

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { UserInfo } from "../Users/components/UserInfo";
-import { PostInfo } from "./components/PostInfo/PostInfo";
 import styles from "./Posts.module.css";
+import { UserInfo } from "../Users/UserInfo";
+import { PostInfo } from "./PostInfo/PostInfo";
 const Posts: React.FC = () => {
   const { userId } = useParams();
 
@@ -58,7 +58,7 @@ const Posts: React.FC = () => {
   ];
 
   return (
-    <>
+    <div className={styles['page-container']}>
       <UserInfo
         userId={userId ?? ""}
         userName="Test"
@@ -68,12 +68,12 @@ const Posts: React.FC = () => {
         addressSuite="test"
       ></UserInfo>
 
-      <div className={styles["container"]}>
+      <div className={styles["posts-container"]}>
         {mockData.map(({ title, body }) => (
           <PostInfo title={title} text={body} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

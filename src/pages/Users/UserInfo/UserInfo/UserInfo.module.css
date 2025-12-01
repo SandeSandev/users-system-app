@@ -1,0 +1,29 @@
+.user-info {
+  display: flex;
+  flex: 1;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+}
+
+.fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 4rem;
+}
+
+.user-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+

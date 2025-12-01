@@ -3,10 +3,10 @@ import { Formik, Form } from "formik";
 import styles from "./UserInfo.module.css";
 import userImg from "../../../../assets/user.png";
 import { Card } from "../../../../components/Card";
-import { Button } from "../../../../components/Button";
-import { UserField } from "./UserInfo.Field";
-import { Avatar } from "./UserInfo.Avatar";
-import { validationSchema } from "./UserInfo.validation.";
+import { Avatar } from "../Avatar/Avatar";
+import { validationSchema } from "./userInfo.validation.";
+import { FormActionBar } from "../../../../components/Formik/FormActionBar/FormActionBar";
+import { FormikField } from "../../../../components/Formik/FormikField";
 
 interface UserCardProps {
   userId: string;
@@ -60,11 +60,11 @@ export const UserInfo: React.FC<UserCardProps> = ({
             setIsEditing(false);
           }}
         >
-          {({ dirty, isSubmitting, resetForm }) => (
+          {() => (
             <Form className={styles["form"]}>
               <div className={styles["fields-grid"]}>
                 {fields.map((field) => (
-                  <UserField
+                  <FormikField
                     key={field.name}
                     label={field.label}
                     fieldName={field.name}
@@ -72,53 +72,15 @@ export const UserInfo: React.FC<UserCardProps> = ({
                   />
                 ))}
               </div>
-              {isEditing && (
-                <div className={styles["buttons-container"]}>
-                  {dirty && (
-                    <Button
-                      variant="outline"
-                      color="primary"
-                      onClick={() => resetForm()}
-                      disabled={!dirty}
-                    >
-                      Revert changes
-                    </Button>
-                  )}
-                  <Button
-                    variant="outline"
-                    color="success"
-                    type="submit"
-                    disabled={!dirty || isSubmitting}
-                  >
-                    Save
-                  </Button>
-
-                  <Button
-                    type="button"
-                    variant="outline"
-                    color="danger"
-                    onClick={() => setIsEditing(false)}
-                  >
-                    Cancel
-                  </Button>
-                </div>
-              )}
+              <FormActionBar
+                isEditing={isEditing}
+                onClickEdit={() => setIsEditing(true)}
+                onCancel={() => setIsEditing(false)}
+              />
             </Form>
           )}
         </Formik>
       </div>
-
-      {!isEditing && (
-        <div className={styles["button-container"]}>
-          <Button
-            variant="outline"
-            color="primary"
-            onClick={() => setIsEditing(true)}
-          >
-            Edit
-          </Button>
-        </div>
-      )}
     </Card>
   );
 };

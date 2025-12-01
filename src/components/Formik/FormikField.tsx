@@ -1,21 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Field, ErrorMessage } from "formik";
-import styles from "./UserInfo.module.css";
+import styles from "./FormikField.module.css";
 
 interface Props {
   label: string;
   fieldName: string;
   isEditing?: boolean;
+  as?: string
 }
 
-export const UserField = ({ label, fieldName, isEditing = false }: Props) => {
+export const FormikField = ({ label, fieldName, isEditing = false, as }: Props) => {
   return (
-    <div className={styles['field']}>
-      <div className={styles['field-row']}>
+    <div className={styles["field"]}>
+      <div className={styles["field-row"]}>
         <label htmlFor={fieldName}>{label}:</label>
 
         {isEditing ? (
-          <Field id={fieldName} name={fieldName} />
+          <Field id={fieldName} name={fieldName} as={as} />
         ) : (
           <Field name={fieldName}>
             {({ field }: any) => <p>{field.value}</p>}
@@ -26,7 +27,7 @@ export const UserField = ({ label, fieldName, isEditing = false }: Props) => {
       {isEditing && (
         <ErrorMessage
           name={fieldName}
-          render={(msg) => <span className={styles.error}>{msg}</span>}
+          render={(msg) => <span className={styles['error']}>{msg}</span>}
         />
       )}
     </div>

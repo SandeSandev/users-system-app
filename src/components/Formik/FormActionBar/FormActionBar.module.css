@@ -1,0 +1,19 @@
+.buttons-container {
+  display: flex;
+  gap: 0.5rem;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.buttons-container button {
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.button-container {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./UserInfo.module.css";
+import styles from './Avatar.module.css'
 
 export const Avatar: React.FC<{
   imgUrl: string;

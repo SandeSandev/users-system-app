@@ -1,4 +1,11 @@
-.container {
+
+.page-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.posts-container {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
