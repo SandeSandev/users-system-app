@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Formik, Form } from "formik";
 import styles from "./UserInfo.module.css";
 import userImg from "../../../../assets/user.png";
@@ -6,6 +6,7 @@ import { Card } from "../../../../components/Card";
 import { Button } from "../../../../components/Button";
 import { UserField } from "./UserInfo.Field";
 import { Avatar } from "./UserInfo.Avatar";
+import { validationSchema } from "./UserInfo.validation.";
 
 interface UserCardProps {
   userId: string;
@@ -28,52 +29,87 @@ export const UserInfo: React.FC<UserCardProps> = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
 
+  const fields = useMemo(
+    () => [
+      { label: "Name", name: "userName" },
+      { label: "Email", name: "email" },
+      { label: "Address", name: "addressStreet" },
+      { label: "Suite", name: "addressSuite" },
+      { label: "City", name: "addressCity" },
+    ],
+    []
+  );
+
   return (
     <Card classes={styles["user-info"]}>
-      <Avatar userName={userName} imgUrl={img} userId={userId} />
-
+      <Avatar imgUrl={img} userId={userId} />
       <div className={styles["user-info-content"]}>
-        {!isEditing ? (
-          <>
-            <div className={styles["fields-grid"]}>
-              <UserField label="Name" value={userName} />
-              <UserField label="Email" value={email} />
-              <UserField label="Address" value={addressStreet} />
-              <UserField label="Suite" value={addressSuite} />
-              <UserField label="Suite" value={addressCity} />
-            </div>
-          </>
-        ) : (
-          <Formik
-            initialValues={{
-              userName,
-              email,
-              addressStreet,
-              addressSuite,
-              addressCity,
-            }}
-            onSubmit={(values) => {
-              console.log(values);
-              setIsEditing(false);
-            }}
-          >
-            {() => (
-              <Form className={styles["form"]}>
-                <div className={styles["fields-grid"]}>
-                  <UserField label="name" value={userName} isEditing />
-                  <UserField label="Email" value={email} isEditing />
-                  <UserField label="Address" value={addressStreet} isEditing />
-                  <UserField label="Suite" value={addressSuite} isEditing />
-                  <UserField label="Suite" value={addressCity} isEditing />
+        <Formik
+          initialValues={{
+            userName,
+            email,
+            addressStreet,
+            addressSuite,
+            addressCity,
+          }}
+          validateOnChange
+          validationSchema={validationSchema}
+          enableReinitialize={false}
+          onSubmit={(values) => {
+            console.log(values);
+            setIsEditing(false);
+          }}
+        >
+          {({ dirty, isSubmitting, resetForm }) => (
+            <Form className={styles["form"]}>
+              <div className={styles["fields-grid"]}>
+                {fields.map((field) => (
+                  <UserField
+                    key={field.name}
+                    label={field.label}
+                    fieldName={field.name}
+                    isEditing={isEditing}
+                  />
+                ))}
+              </div>
+              {isEditing && (
+                <div className={styles["buttons-container"]}>
+                  {dirty && (
+                    <Button
+                      variant="outline"
+                      color="primary"
+                      onClick={() => resetForm()}
+                      disabled={!dirty}
+                    >
+                      Revert changes
+                    </Button>
+                  )}
+                  <Button
+                    variant="outline"
+                    color="success"
+                    type="submit"
+                    disabled={!dirty || isSubmitting}
+                  >
+                    Save
+                  </Button>
+
+                  <Button
+                    type="button"
+                    variant="outline"
+                    color="danger"
+                    onClick={() => setIsEditing(false)}
+                  >
+                    Cancel
+                  </Button>
                 </div>
-              </Form>
-            )}
-          </Formik>
-        )}
+              )}
+            </Form>
+          )}
+        </Formik>
       </div>
 
-      <div className={styles["buttons-container"]}>
-        {!isEditing && (
+      {!isEditing && (
+        <div className={styles["button-container"]}>
           <Button
             variant="outline"
             color="primary"
@@ -81,23 +117,8 @@ export const UserInfo: React.FC<UserCardProps> = ({
           >
             Edit
           </Button>
-        )}
-        {isEditing && (
-          <>
-            <Button variant="outline" color="primary" type="submit">
-              Save
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              color="danger"
-              onClick={() => setIsEditing(false)}
-            >
-              Cancel
-            </Button>
-          </>
-        )}
-      </div>
+        </div>
+      )}
     </Card>
   );
 };

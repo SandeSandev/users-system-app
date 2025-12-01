@@ -4,11 +4,12 @@ import cn from "classnames";
 
 interface ButtonProps {
   variant: "normal" | "outline" | "transparent";
-  color: "primary" | "dark" | "secondary" | "danger";
+  color: "primary" | "dark" | "secondary" | "danger" | 'success';
   size?: "sm" | "md" | "lg";
   type?: "button" | "submit";
   className?: string;
-  onClick?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onClick?: (e:any) => void;
   children?: ReactNode;
   disabled?: boolean;
   icon?: React.ReactElement;
@@ -28,6 +29,7 @@ export const Button: React.FC<ButtonProps> = ({
   iconPosition = "left",
   ...props
 }) => {
+  
   const classes = cn(
     styles.btn,
     styles[`btn-${color}`],

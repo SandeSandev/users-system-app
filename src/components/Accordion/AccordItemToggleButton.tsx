@@ -13,13 +13,15 @@ export const AccordItemToggleButton: React.FC<AccordItemToggleButtonProps> = ({
   const { toggleAccordionRow, isRowExpanded } = useAccordionContentContext();
 
   return (
-
     <Button
       type="button"
       variant="transparent"
       color="dark"
       size="sm"
-      onClick={() => toggleAccordionRow(rowId)}
+      onClick={(e) => {
+        e.stopPropagation();
+        toggleAccordionRow(rowId);
+      }}
       icon={isRowExpanded(rowId) ? <ArrowUpIcon /> : <ArrowDownIcon />}
     />
   );

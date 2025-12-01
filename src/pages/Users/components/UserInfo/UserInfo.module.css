@@ -1,13 +1,15 @@
 .user-info {
   display: flex;
+  position: relative;
   flex-direction: row;
   align-items: center;
+  gap: 3rem;
 }
 
 .fields-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px 24px;
+  gap: 1rem 4rem;
 }
 
 .avatar-container {
@@ -24,7 +26,7 @@
 .user-info-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 2rem;
 }
 
 .field {
@@ -64,9 +66,10 @@
 
 .buttons-container {
   display: flex;
-  gap: 10px;
-  margin-bottom: auto;
-  flex: 1;
+  gap: 0.5rem;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
 }
 
 .buttons-container button {
@@ -74,6 +77,31 @@
   border-radius: 6px;
 }
 
-.buttons-container button:first-child {
-  margin-left: auto;
+.button-container {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  display: block;
+  max-height: 32px;
+  overflow: hidden;
+  white-space: normal;
 }

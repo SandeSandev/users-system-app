@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styles from "./UserInfo.module.css";
 
 export const Avatar: React.FC<{
-  userName: string;
   imgUrl: string;
   userId: string;
 }> = ({ imgUrl, userId }) => {
