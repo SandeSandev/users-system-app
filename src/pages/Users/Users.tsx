@@ -5,18 +5,19 @@ import { fetchUsers } from "../../store/slices/users-slice";
 import { Accordion } from "../../components/Accordion";
 import { AccordionItem } from "../../components/Accordion/AccordionItem";
 import { UserInfo } from "./UserInfo";
+import { Spinner } from "../../components/Spinner/Spinner";
 
 const Users: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { list, loading, error } = useAppSelector((state) => state);
+  const { list, loading, error } = useAppSelector((state) => state.users);
 
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
   // ADD PROPER STYLES TO THESE!!!!
-  if (loading) return <p>Loading…</p>;
+  if (loading) return <Spinner size="sm" />;
   if (error) return <p>Error: {error}</p>;
 
   if (!list || list.length === 0) {
@@ -25,16 +26,11 @@ const Users: React.FC = () => {
 
   return (
     <Accordion>
-      {list.map(({ id, username, email, address }) => (
-        <AccordionItem id={id.toString()} header={username}>
+      {list.map((user) => (
+        <AccordionItem id={user.id.toString()} header={user.username}>
           <UserInfo
-            userId={id.toString()}
-            key={`user-${id}`}
-            userName={username}
-            email={email}
-            addressCity={address.city}
-            addressStreet={address.street}
-            addressSuite={address.zipcode}
+            key={`user-${user.id}`}
+          user={user}
           ></UserInfo>
         </AccordionItem>
       ))}
