@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Tasks from "../pages/Tasks";
+import Tasks from "../pages/Tasks/Tasks";
 import { Layout } from "../components/Layout/Layout";
 import Users from "../pages/Users/Users";
 import Posts from "../pages/Posts/Posts";

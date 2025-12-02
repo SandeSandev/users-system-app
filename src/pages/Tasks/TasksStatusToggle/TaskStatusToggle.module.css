@@ -1,0 +1,33 @@
+.toggle {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  font-weight: 500;
+}
+
+/* NOT COMPLETED */
+.notCompleted {
+  background: #fff4f4;
+  color: #d0312d;
+  border-color: #d0312d;
+}
+
+.notCompleted:hover {
+  background: #d0312d;
+  color: white;
+}
+
+/* COMPLETED */
+.completed {
+  background: #e9f9ea;
+  color: #2d7a32;
+  border-color: #2d7a32;
+}
+
+.completed:hover {
+  background: #2d7a32;
+  color: white;
+}
