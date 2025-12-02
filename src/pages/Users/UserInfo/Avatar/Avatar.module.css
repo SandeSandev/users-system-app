@@ -8,3 +8,12 @@
 .avatar-title {
   margin-bottom: 4px;
 }
+
+.link {
+  font-size: 1.3rem;
+  padding: 10px 16px;
+}
+
+.active {
+  font-weight: 600;
+}

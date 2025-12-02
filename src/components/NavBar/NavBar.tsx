@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import appLogo from "./../../assets/app-logo.png";
-
+import cn from "classnames";
 export const NavBar: React.FC = () => {
   return (
     <nav className={styles["navbar"]}>
@@ -14,10 +14,24 @@ export const NavBar: React.FC = () => {
       />
       <ul className={styles["nav-menu"]}>
         <li className={styles["item"]}>
-          <Link to={"/users"}>Users </Link>
+          <NavLink
+            to="/users"
+            className={({ isActive }) =>
+              cn(styles["link"], { [styles["active"]]: isActive })
+            }
+          >
+            Users
+          </NavLink>
         </li>
         <li className={styles["item"]}>
-          <Link to="/tasks">Tasks </Link>
+          <NavLink
+            to="/tasks"
+            className={({ isActive }) =>
+              cn(styles["link"], { [styles["active"]]: isActive })
+            }
+          >
+            Tasks
+          </NavLink>
         </li>
       </ul>
     </nav>

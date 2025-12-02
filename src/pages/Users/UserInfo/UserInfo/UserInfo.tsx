@@ -15,9 +15,14 @@ import { userService } from "../../../../services/users";
 interface UserCardProps {
   img?: string;
   user: User;
+  showSeePosts?: boolean;
 }
 
-export const UserInfo: React.FC<UserCardProps> = ({ img = userImg, user }) => {
+export const UserInfo: React.FC<UserCardProps> = ({
+  img = userImg,
+  user,
+  showSeePosts = false,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -56,7 +61,11 @@ export const UserInfo: React.FC<UserCardProps> = ({ img = userImg, user }) => {
 
   return (
     <Card classes={styles["user-info"]}>
-      <Avatar imgUrl={img} userId={user.id.toString()} />
+      <Avatar
+        imgUrl={img}
+        userId={user.id.toString()}
+        showSeePosts={showSeePosts}
+      />
       <div className={styles["user-info-content"]}>
         <Formik
           initialValues={{

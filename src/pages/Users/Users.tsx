@@ -28,10 +28,7 @@ const Users: React.FC = () => {
     <Accordion>
       {list.map((user) => (
         <AccordionItem id={user.id.toString()} header={user.username}>
-          <UserInfo
-            key={`user-${user.id}`}
-          user={user}
-          ></UserInfo>
+          <UserInfo key={`user-${user.id}`} user={user} showSeePosts></UserInfo>
         </AccordionItem>
       ))}
     </Accordion>

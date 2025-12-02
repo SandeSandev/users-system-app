@@ -1,6 +1,6 @@
 .navbar {
   display: flex;
-  background: #fff;
+  background: #f8fafc;
   padding: 5px 5px;
   box-shadow: 0px 5px 20px -17px rgba(0, 0, 0, 0.34);
   border-radius: 10px;
@@ -29,4 +29,27 @@
 
 .nav-menu .item a:hover {
   color: #2258c3;
+}
+
+.link {
+  color: #64748b;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.link:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.active {
+  color: #0f172a;
+  background: #e2e8f0;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
 }

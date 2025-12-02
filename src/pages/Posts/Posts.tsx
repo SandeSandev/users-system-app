@@ -8,6 +8,7 @@ import type { Post } from "../../models/post";
 import { notifyApiError } from "../../utils/notifyApiErro";
 import { useAppSelector } from "../../store/hooks/useAppSelector";
 import { Spinner } from "../../components/Spinner/Spinner";
+import { HeaderWithBackButton } from "./Header/Header";
 const Posts: React.FC = () => {
   const { userId } = useParams();
   const [posts, setPosts] = useState<Post[]>([]);
@@ -37,23 +38,27 @@ const Posts: React.FC = () => {
   };
 
   return (
-    <div className={styles["page-container"]}>
-      {userInfo && <UserInfo user={userInfo}></UserInfo>}
+    <>
+      <div className={styles["page-container"]}>
+        <HeaderWithBackButton />
 
-      <div className={styles["posts-container"]}>
-        {isLoadingPosts && <Spinner size="md" />}
-        {!isLoadingPosts &&
-          posts.map(({ id, title, body }) => (
-            <PostInfo
-              id={id}
-              title={title}
-              body={body}
-              key={`post-${id}`}
-              onDelete={handlePostDelete}
-            />
-          ))}
+        {userInfo && <UserInfo user={userInfo}></UserInfo>}
+
+        <div className={styles["posts-container"]}>
+          {isLoadingPosts && <Spinner size="md" />}
+          {!isLoadingPosts &&
+            posts.map(({ id, title, body }) => (
+              <PostInfo
+                id={id}
+                title={title}
+                body={body}
+                key={`post-${id}`}
+                onDelete={handlePostDelete}
+              />
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
