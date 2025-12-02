@@ -6,30 +6,42 @@ interface Props {
   label: string;
   fieldName: string;
   isEditing?: boolean;
-  as?: string
+  as?: "input" | "textarea";
+  rows?: number;
 }
 
-export const FormikField = ({ label, fieldName, isEditing = false, as }: Props) => {
+export const FormikField = ({
+  label,
+  fieldName,
+  isEditing = false,
+  as = "input",
+  rows = 4,
+}: Props) => {
   return (
-    <div className={styles["field"]}>
-      <div className={styles["field-row"]}>
-        <label htmlFor={fieldName}>{label}:</label>
+    <div className={styles.field}>
+      <label htmlFor={fieldName}>{label}:</label>
 
+      <div className={styles.fieldControl}>
         {isEditing ? (
-          <Field id={fieldName} name={fieldName} as={as} />
+          <Field
+            id={fieldName}
+            name={fieldName}
+            as={as}
+            rows={as === "textarea" ? rows : undefined}
+          />
         ) : (
           <Field name={fieldName}>
             {({ field }: any) => <p>{field.value}</p>}
           </Field>
         )}
-      </div>
 
-      {isEditing && (
-        <ErrorMessage
-          name={fieldName}
-          render={(msg) => <span className={styles['error']}>{msg}</span>}
-        />
-      )}
+        {isEditing && (
+          <ErrorMessage
+            name={fieldName}
+            render={(msg) => <span className={styles.error}>{msg}</span>}
+          />
+        )}
+      </div>
     </div>
   );
 };

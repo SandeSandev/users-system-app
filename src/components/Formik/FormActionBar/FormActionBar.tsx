@@ -8,7 +8,11 @@ interface Props {
   onCancel: () => void;
 }
 
-export const FormActionBar = ({ isEditing, onClickEdit, onCancel }: Props) => {
+export const FormActionBar = ({
+  isEditing,
+  onClickEdit,
+  onCancel,
+}: Props) => {
   const { dirty, isSubmitting, resetForm, submitForm } =
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     useFormikContext<any>();
