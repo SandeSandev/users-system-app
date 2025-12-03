@@ -29,7 +29,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const classes = cn(
-    styles.btn,
+    styles['btn'],
     styles[`btn-${color}`],
     styles[`btn-${variant}`],
     styles[`btn-${size}`],

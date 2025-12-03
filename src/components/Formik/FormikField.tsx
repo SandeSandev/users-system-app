@@ -17,7 +17,7 @@ export const FormikField = ({
   rows = 4,
 }: Props) => {
   return (
-    <div className={styles.field}>
+    <div className={styles['field']}>
       <label htmlFor={fieldName}>{label}:</label>
 
       <div className={styles["field-control"]}>
@@ -39,7 +39,7 @@ export const FormikField = ({
         {isEditing && (
           <ErrorMessage
             name={fieldName}
-            render={(msg) => <span className={styles.error}>{msg}</span>}
+            render={(msg) => <span className={styles['error']}>{msg}</span>}
           />
         )}
       </div>

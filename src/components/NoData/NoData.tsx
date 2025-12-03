@@ -18,10 +18,10 @@ export const NoData: React.FC<NoDataProps> = ({
   children,
 }) => {
   return (
-    <div className={cn(styles.container, className)}>
+    <div className={cn(styles['container'], className)}>
       {icon && <div className={styles['icon']}>{icon}</div>}
 
-      <h3 className={styles.title}>{title}</h3>
+      <h3 className={styles['title']}>{title}</h3>
 
       {message && <p className={styles['message']}>{message}</p>}
 

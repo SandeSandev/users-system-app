@@ -7,7 +7,6 @@
   align-items: flex-end;
 }
 
-
 .post-info-content {
   display: flex;
   flex-direction: column;
@@ -15,7 +14,6 @@
   width: 100%;
   margin: 3rem 0 2rem 0;
 }
-
 
 .button-container {
   display: flex;
