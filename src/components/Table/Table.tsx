@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState, useMemo, useCallback, type ReactNode } from "react";
 import styles from "./Table.module.css";
 import cn from "classnames";
 import { Pagination } from "./Pagination/Pagination";
@@ -25,12 +25,19 @@ export function Table<T extends object>({
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
 
-  const totalPages = Math.ceil(data.length / pageSize);
+  const totalPages = useMemo(() => {
+    return Math.ceil(data.length / pageSize);
+  }, [data]);
 
-  const paginatedData = data.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
+  const paginatedData = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    const end = currentPage * pageSize;
+    return data.slice(start, end);
+  }, [data, currentPage]);
+
+  const handlePageChange = useCallback((p: number) => {
+    setCurrentPage(p);
+  }, []);
 
   return (
     <>
@@ -52,35 +59,47 @@ export function Table<T extends object>({
               ))}
             </tr>
           </thead>
-          <tbody>
-            {paginatedData.map((row, rowIndex) => (
-              <tr key={`row-${rowIndex}`} className={styles["table-row"]}>
-                {columns.map((col) => {
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  const content = col.cell?.(row) ?? (row as any)[col.id];
 
-                  return (
-                    <td
-                      key={col.id}
-                      className={cn(
-                        styles["table-cell"],
-                        styles["table-cell-body"],
-                        col.cellClassName
-                      )}
-                    >
-                      {content}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
+          <tbody>
+            {paginatedData.map((row, rowIndex) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const key = "id" in row ? (row as any).id : `row-${rowIndex}`;
+
+              return (
+                <tr key={key} className={styles["table-row"]}>
+                  {columns.map((col) => {
+                    const rawValue = row[col.id as keyof T];
+
+                    const content =
+                      col.cell?.(row) ??
+                      (typeof rawValue === "string"
+                        ? rawValue
+                        : String(rawValue));
+
+                    return (
+                      <td
+                        key={col.id}
+                        className={cn(
+                          styles["table-cell"],
+                          styles["table-cell-body"],
+                          col.cellClassName
+                        )}
+                      >
+                        {content}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
+
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={(p) => setCurrentPage(p)}
+        onPageChange={handlePageChange}
       />
     </>
   );

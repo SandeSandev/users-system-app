@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Field, ErrorMessage } from "formik";
+import { Field, ErrorMessage, type FieldInputProps } from "formik";
 import styles from "./FormikField.module.css";
 
 interface Props {
@@ -21,7 +20,7 @@ export const FormikField = ({
     <div className={styles.field}>
       <label htmlFor={fieldName}>{label}:</label>
 
-      <div className={styles.fieldControl}>
+      <div className={styles["field-control"]}>
         {isEditing ? (
           <Field
             id={fieldName}
@@ -31,7 +30,9 @@ export const FormikField = ({
           />
         ) : (
           <Field name={fieldName}>
-            {({ field }: any) => <p>{field.value}</p>}
+            {({ field }: { field: FieldInputProps<string> }) => (
+              <p>{field.value}</p>
+            )}
           </Field>
         )}
 

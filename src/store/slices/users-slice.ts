@@ -6,34 +6,33 @@ import {
 import type { RootState } from "./store";
 import type { User } from "../../models/user";
 import { userService } from "../../services/users";
-
-interface ThunkError {
-  message: string;
-}
+import type { ApiError } from "../../utils/handleApiError";
+import { handleApiError } from "../../utils/handleApiError";
 
 export const fetchUsers = createAsyncThunk<
-  Array<User>,
+  User[],
   void,
-  { rejectValue: ThunkError; state: RootState }
->("users/fetch", async (_, payloadCreator) => {
-  const { getState, rejectWithValue } = payloadCreator;
+  { rejectValue: ApiError; state: RootState }
+>("users/fetch", async (_, { getState, rejectWithValue }) => {
   const list = getState().users.list;
+
+  //caching
   if (list && list.length > 0) {
     return list;
   }
+
   try {
     const response = await userService.getAll();
     return response;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    return rejectWithValue({ message: error.message });
+  } catch (error) {
+    return rejectWithValue(handleApiError(error));
   }
 });
 
 interface UserState {
-  list: Array<User> | null | undefined;
+  list: User[] | null;
   loading: boolean;
-  error: string | null;
+  error: ApiError | null;
 }
 
 const initialState: UserState = {
@@ -46,12 +45,15 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    updateUserInStore: (state, action: PayloadAction<User>) => {
+    updateUserInStore(state, action: PayloadAction<User>) {
       if (!state.list) return;
+
       const updated = action.payload;
       const index = state.list.findIndex((u) => u.id === updated.id);
-      if (index === -1) return;
-      state.list[index] = updated;
+
+      if (index !== -1) {
+        state.list[index] = updated;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -66,7 +68,7 @@ const usersSlice = createSlice({
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message ?? "Unknown error";
+        state.error = action.payload ?? { message: "Unknown error" };
       });
   },
 });

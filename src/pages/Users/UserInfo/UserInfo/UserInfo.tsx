@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { Formik, Form } from "formik";
 import styles from "./UserInfo.module.css";
 import userImg from "../../../../assets/user.png";
@@ -11,6 +11,9 @@ import type { User } from "../../../../models/user";
 import { useAppDispatch } from "../../../../store/hooks/useAppDispatch";
 import { usersActions } from "../../../../store/slices/users-slice";
 import { userService } from "../../../../services/users";
+import { notifySuccess } from "../../../../utils/notifySuccess";
+import { notifyApiError } from "../../../../utils/notifyApiErro";
+import { handleApiError } from "../../../../utils/handleApiError";
 
 interface UserCardProps {
   img?: string;
@@ -26,18 +29,46 @@ export const UserInfo: React.FC<UserCardProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useAppDispatch();
 
-  const handleSubmit = async (values: User) => {
-    try {
-      const response = await userService.updateById(user.id, values);
-      console.log("response", response);
-      dispatch(usersActions.updateUserInStore(response));
+  const initialValues = useMemo(
+    () => ({
+      username: user.username,
+      name: user.name,
+      email: user.email,
+      address: {
+        street: user.address.street,
+        suite: user.address.suite,
+        city: user.address.city,
+        zipcode: user.address.zipcode,
+        geo: {
+          lat: user.address.geo.lat,
+          lng: user.address.geo.lng,
+        },
+      },
+      phone: user.phone,
+      website: user.website,
+      company: {
+        name: user.company.name,
+        bs: user.company.bs,
+        catchPhrase: user.company.catchPhrase,
+      },
+    }),
+    [user]
+  );
 
-      setIsEditing(false);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      console.error(err);
-    }
-  };
+  const handleSubmit = useCallback(
+    async (values: User) => {
+      try {
+        const updatedUser = await userService.updateById(user.id, values);
+        dispatch(usersActions.updateUserInStore(updatedUser));
+        notifySuccess("Successfully updated user");
+        setIsEditing(false);
+      } catch (error) {
+        const apiError = handleApiError(error);
+        notifyApiError(apiError);
+      }
+    },
+    [user.id, dispatch]
+  );
 
   const fields = useMemo(
     () => [
@@ -66,37 +97,15 @@ export const UserInfo: React.FC<UserCardProps> = ({
         userId={user.id.toString()}
         showSeePosts={showSeePosts}
       />
+
       <div className={styles["user-info-content"]}>
         <Formik
-          initialValues={{
-            username: user.username,
-            name: user.name,
-            email: user.email,
-            address: {
-              street: user.address.street,
-              suite: user.address.suite,
-              city: user.address.city,
-              zipcode: user.address.zipcode,
-              geo: {
-                lat: user.address.geo.lat,
-                lng: user.address.geo.lng,
-              },
-            },
-            phone: user.phone,
-            website: user.website,
-            company: {
-              name: user.company.name,
-              bs: user.company.bs,
-              catchPhrase: user.company.catchPhrase,
-            },
-          }}
+          initialValues={initialValues}
           validateOnChange
           validationSchema={validationSchema}
-          enableReinitialize={false}
+          enableReinitialize={true}
           onSubmit={(values) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            handleSubmit(values as any);
-            setIsEditing(false);
+            handleSubmit(values as User);
           }}
         >
           {() => (
@@ -111,6 +120,7 @@ export const UserInfo: React.FC<UserCardProps> = ({
                   />
                 ))}
               </div>
+
               <FormActionBar
                 isEditing={isEditing}
                 onClickEdit={() => setIsEditing(true)}

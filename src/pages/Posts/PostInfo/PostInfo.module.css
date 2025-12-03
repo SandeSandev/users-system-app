@@ -1,3 +1,4 @@
+
 .info {
   flex: 0 0 40%;
   position: relative;
@@ -7,13 +8,12 @@
 }
 
 
-.user-info-content {
+.post-info-content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   width: 100%;
-  padding: 20px;
-  padding-top: 3rem;
+  margin: 3rem 0 2rem 0;
 }
 
 
@@ -22,5 +22,5 @@
   gap: 0.5rem;
   position: absolute;
   right: 20px;
-  bottom: 10px;
+  bottom: 3px;
 }

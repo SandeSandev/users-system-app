@@ -1,19 +1,15 @@
-.tasks-container {
+.container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   width: 100%;
-  min-height: 300px; 
+  gap: 2rem;
+  min-height: 300px;
 }
 
 .loading-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 250px; 
-  width: 100%;
-}
-
-.table {
+  min-height: 250px;
   width: 100%;
 }

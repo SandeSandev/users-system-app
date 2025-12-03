@@ -4,12 +4,11 @@ import cn from "classnames";
 
 interface ButtonProps {
   variant: "normal" | "outline" | "transparent";
-  color: "primary" | "dark" | "secondary" | "danger" | 'success';
+  color: "primary" | "dark" | "secondary" | "danger" | "success";
   size?: "sm" | "md" | "lg";
   type?: "button" | "submit";
   className?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClick?: (e:any) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   children?: ReactNode;
   disabled?: boolean;
   icon?: React.ReactElement;
@@ -29,7 +28,6 @@ export const Button: React.FC<ButtonProps> = ({
   iconPosition = "left",
   ...props
 }) => {
-  
   const classes = cn(
     styles.btn,
     styles[`btn-${color}`],

@@ -7,8 +7,7 @@ export const userService = {
     try {
       const res = await usersApi.getAllUsers();
       return res.data;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
+    } catch (error: unknown) {
       throw handleApiError(error);
     }
   },
@@ -17,10 +16,8 @@ export const userService = {
     try {
       const res = await usersApi.updateUserById(id, data);
       return res.data;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.error("UsersService.getById ERROR:", error);
-      throw new Error(error.friendlyMessage || "Failed to load user");
+    } catch (error: unknown) {
+      throw handleApiError(error);
     }
   },
 };

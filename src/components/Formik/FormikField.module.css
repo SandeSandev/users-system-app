@@ -1,76 +1,4 @@
-/* 
-.field {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 4px;
-}
 
-.field label {
-  font-weight: 600;
-  font-size: 14px;
-  color: #444;
-}
-
-.field-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
-}
-
-
-.field p {
-  margin: 0;
-  color: #222;
-}
-
-.fieldRow input,
-.fieldRow textarea {
-  width: 100%;               
-  padding: 10px 12px;
-  font-size: 14px;
-  border: 1px solid #d0d0d0;
-  border-radius: 6px;
-  outline: none;
-  resize: vertical;
-  box-sizing: border-box;  
-  transition: border 0.15s ease, box-shadow 0.15s ease;
-}
-
-
-.fieldRow input:focus,
-.fieldRow textarea:focus {
-  border-color: #0d6efd;
-  box-shadow: 0 0 0 2px rgba(13,110,253,0.15);
-}
-
-
-.fieldRow p,
-.textareaValue {
-  width: 100%;          
-  padding: 10px 12px;
-  background: #f8f9fa;
-  border-radius: 6px;
-  border: 1px solid #e0e0e0;
-  white-space: pre-wrap;
-  word-break: break-word;
-  box-sizing: border-box;
-}
-
-
-
-.error {
-  color: #dc3545;
-  font-size: 0.8rem;
-  line-height: 1.2;
-  display: block;
-  max-height: 32px;
-  overflow: hidden;
-  white-space: normal;
-} */
-
-/* One field in a row */
 .field {
   display: flex;
   flex-direction: row;
@@ -80,25 +8,22 @@
   gap: 12px;
 }
 
-/* Label area */
 .field label {
   font-weight: 600;
   color: #333;
   margin-top: 8px; /* подравнява визуално */
 }
 
-/* Right side: input OR p */
-.fieldControl {
-  flex: 1; /* ← най-важното за EDIT режим */
+.field-control {
+  flex: 1; 
   display: flex;
   flex-direction: column;
   gap: 6px;
-  width: 100%; /* ← подсигурява пълна ширина */
+  width: 100%; 
 }
 
-/* Input + textarea styles */
-.fieldControl input,
-.fieldControl textarea {
+.field-control input,
+.field-control textarea {
   width: 100%;
   flex: 1;
   padding: 10px 12px;
@@ -112,14 +37,13 @@
   box-sizing: border-box;
 }
 
-.fieldControl input:focus,
-.fieldControl textarea:focus {
+.fiel-control input:focus,
+.field-control textarea:focus {
   border-color: #0d6efd;
   box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
 }
 
-/* VIEW MODE paragraph */
-.fieldControl p {
+.field-control p {
   width: 100%;
   padding: 10px 12px;
   background: #f8f9fa;
@@ -132,9 +56,8 @@
   margin: 0;
 }
 
-/* Error message */
 .error {
   color: #dc3545;
-  font-size: 0.75rem;
+  font-size: 1rem;
   margin-top: -4px;
 }

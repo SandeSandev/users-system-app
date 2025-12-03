@@ -8,19 +8,17 @@
   font-weight: 500;
 }
 
-/* NOT COMPLETED */
-.notCompleted {
+.not-completed {
   background: #fff4f4;
   color: #d0312d;
   border-color: #d0312d;
 }
 
-.notCompleted:hover {
+.not-completed:hover {
   background: #d0312d;
   color: white;
 }
 
-/* COMPLETED */
 .completed {
   background: #e9f9ea;
   color: #2d7a32;

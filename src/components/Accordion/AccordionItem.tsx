@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import styles from "./Accordion.module.css";
 import { AccordItemToggleButton } from "./AccordItemToggleButton";
 import { useAccordionContentContext } from "./useAccordionContext";
@@ -5,8 +6,7 @@ import { useAccordionContentContext } from "./useAccordionContext";
 interface AccordionItemProps {
   header: string;
   id: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: any;
+  children: ReactNode;
 }
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({

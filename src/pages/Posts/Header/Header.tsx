@@ -3,7 +3,7 @@ import { Button } from "../../../components/Button";
 
 import styles from "./Header.module.css";
 
-export const HeaderWithBackButton: React.FC = () => {
+export const BackButton: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -17,7 +17,6 @@ export const HeaderWithBackButton: React.FC = () => {
         ← Go to Users
       </Button>
 
-      <h2 className={styles['title']}>Posts</h2>
     </div>
   );
 };

@@ -9,10 +9,12 @@ interface Props {
 export const TaskStatusToggle: React.FC<Props> = ({ completed, onToggle }) => {
   return (
     <button
-      className={`${styles.toggle} ${completed ? styles.completed : styles.notCompleted}`}
+      className={`${styles["toggle"]} ${
+        completed ? styles["completed"] : styles["not-completed"]
+      }`}
       onClick={() => onToggle(!completed)}
     >
-      {completed ? "Completed ✓" : "Not Completed ✗"}
+      {completed ? "Completed" : "Not Completed"}
     </button>
   );
 };

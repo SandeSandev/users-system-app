@@ -10,8 +10,7 @@ export const postsService = {
     try {
       const res = await postsApi.getPostByUser(userId);
       return res.data;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
+    } catch (error: unknown) {
       throw handleApiError(error);
     }
   },

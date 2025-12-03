@@ -8,7 +8,9 @@ import type { Post } from "../../models/post";
 import { notifyApiError } from "../../utils/notifyApiErro";
 import { useAppSelector } from "../../store/hooks/useAppSelector";
 import { Spinner } from "../../components/Spinner/Spinner";
-import { HeaderWithBackButton } from "./Header/Header";
+import { BackButton } from "./Header/Header";
+import { handleApiError } from "../../utils/handleApiError";
+import { NoData } from "../../components/NoData/NoData";
 const Posts: React.FC = () => {
   const { userId } = useParams();
   const [posts, setPosts] = useState<Post[]>([]);
@@ -23,9 +25,9 @@ const Posts: React.FC = () => {
       try {
         const data = await postsService.getByUserId(userId);
         setPosts(data);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        notifyApiError(error);
+      } catch (error: unknown) {
+        const apiError = handleApiError(error);
+        notifyApiError(apiError);
       } finally {
         setIsLoadingPosts(false);
       }
@@ -33,27 +35,36 @@ const Posts: React.FC = () => {
     loadPosts();
   }, [userId]);
 
-  const handlePostDelete = (id: number) => {
+  const handleDeletePost = (id: number) => {
     setPosts((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const handleUpdatePost = (post: Post) => {
+    setPosts((prev) => prev.map((p) => (p.id === post.id ? post : p)));
   };
 
   return (
     <>
       <div className={styles["page-container"]}>
-        <HeaderWithBackButton />
-
+        <div className={styles["header-container"]}>
+          <BackButton />
+          <h2>User Details:</h2>
+        </div>
         {userInfo && <UserInfo user={userInfo}></UserInfo>}
-
+          <h2>Posts:</h2>
         <div className={styles["posts-container"]}>
-          {isLoadingPosts && <Spinner size="md" />}
+          {isLoadingPosts && <Spinner size="lg" />}
+          {!isLoadingPosts && posts.length === 0 && (
+            <NoData title="No posts found" />
+          )}
           {!isLoadingPosts &&
-            posts.map(({ id, title, body }) => (
+            posts.length > 0 &&
+            posts.map((post) => (
               <PostInfo
-                id={id}
-                title={title}
-                body={body}
-                key={`post-${id}`}
-                onDelete={handlePostDelete}
+                post={post}
+                key={`post-${post.id}`}
+                onUpdate={handleUpdatePost}
+                onDelete={handleDeletePost}
               />
             ))}
         </div>

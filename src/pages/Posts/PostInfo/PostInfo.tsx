@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Card } from "../../../components/Card";
 import styles from "./PostInfo.module.css";
 import { FormActionBar } from "../../../components/Formik/FormActionBar/FormActionBar";
@@ -8,12 +8,16 @@ import { postsService } from "../../../services/posts";
 import { useConfirmation } from "../../../hooks/useConfirmation";
 import { ConfirmationModal } from "../../../components/ConfirmationModal/ConfirmationModal";
 import { Button } from "../../../components/Button";
+import TrashIcon from "../../../Icons/TrashIcon";
+import { notifySuccess } from "../../../utils/notifySuccess";
+import { handleApiError } from "../../../utils/handleApiError";
+import { notifyApiError } from "../../../utils/notifyApiErro";
+import type { Post } from "../../../models/post";
 
 interface PostInfoProps {
-  id: number;
-  title: string;
-  body: string;
+  post: Post;
   onDelete: (id: number) => void;
+  onUpdate: (newValue: Post) => void;
 }
 
 interface PostFormValues {
@@ -22,12 +26,12 @@ interface PostFormValues {
 }
 
 export const PostInfo: React.FC<PostInfoProps> = ({
-  id,
-  title,
-  body,
+  post,
+  onUpdate,
   onDelete,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const { isOpen, open, close } = useConfirmation();
 
@@ -39,38 +43,50 @@ export const PostInfo: React.FC<PostInfoProps> = ({
     []
   );
 
-  const handleSubmit = async (values: PostFormValues): Promise<void> => {
+  const initialValues = useMemo(
+    () => ({
+      title: post.title,
+      body: post.body,
+    }),
+    [post.title, post.body]
+  );
+
+  const handleEditSubmit = async (values: PostFormValues) => {
     try {
-      await postsService.updateById(id, values);
+      await postsService.updateById(post.id, values);
+      onUpdate({ ...post, ...values });
+      notifySuccess("Successfully updated post");
       setIsEditing(false);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.error(error.message);
+    } catch (error: unknown) {
+      const apiError = handleApiError(error);
+      notifyApiError(apiError);
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     try {
-      await postsService.deleteById(id);
-      onDelete(id);
+      setIsDeleting(true);
+      await postsService.deleteById(post.id);
+      onDelete(post.id);
+      notifySuccess("Successfully delete post");
       close();
-    } catch (err) {
-      console.error(err);
+    } catch (error: unknown) {
+      const apiError = handleApiError(error);
+      notifyApiError(apiError);
+    } finally {
+      setIsDeleting(false);
     }
-  };
+  }, [post.id, onDelete, close]);
 
   return (
     <>
       <Card classes={styles["info"]}>
-        <div className={styles["user-info-content"]}>
+        <div className={styles["post-info-content"]}>
           <Formik
-            initialValues={{
-              title,
-              body,
-            }}
-            enableReinitialize={false}
+            initialValues={initialValues}
+            enableReinitialize={true}
             onSubmit={(values) => {
-              handleSubmit(values);
+              handleEditSubmit(values);
               setIsEditing(false);
             }}
           >
@@ -78,7 +94,7 @@ export const PostInfo: React.FC<PostInfoProps> = ({
               <Form className={styles["form"]}>
                 {fields.map((field) => (
                   <FormikField
-                    key={id}
+                    key={field.name}
                     label={field.label}
                     fieldName={field.name}
                     isEditing={isEditing}
@@ -96,10 +112,12 @@ export const PostInfo: React.FC<PostInfoProps> = ({
           </Formik>
         </div>
         <Button
-          variant="normal"
+          variant="transparent"
           color="danger"
           className={styles["button-container"]}
           onClick={open}
+          icon={<TrashIcon />}
+          iconPosition="right"
         >
           Delete
         </Button>
@@ -107,9 +125,10 @@ export const PostInfo: React.FC<PostInfoProps> = ({
       {isOpen && (
         <ConfirmationModal
           title="Delete Post?"
-          message="This action cannot be undone."
+          message="Are you sure to delete this post?"
           confirmText="Delete"
           cancelText="Cancel"
+          isLoading={isDeleting}
           onConfirm={handleDelete}
           onCancel={close}
         />

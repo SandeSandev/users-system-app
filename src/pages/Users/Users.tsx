@@ -6,7 +6,9 @@ import { Accordion } from "../../components/Accordion";
 import { AccordionItem } from "../../components/Accordion/AccordionItem";
 import { UserInfo } from "./UserInfo";
 import { Spinner } from "../../components/Spinner/Spinner";
-
+import styles from "./Users.module.css";
+import { notifyApiError } from "../../utils/notifyApiErro";
+import { NoData } from "../../components/NoData/NoData";
 const Users: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -16,22 +18,33 @@ const Users: React.FC = () => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  // ADD PROPER STYLES TO THESE!!!!
-  if (loading) return <Spinner size="sm" />;
-  if (error) return <p>Error: {error}</p>;
-
-  if (!list || list.length === 0) {
-    return <p>No users found.</p>;
-  }
-
+  useEffect(() => {
+    if (error) {
+      notifyApiError(error);
+    }
+  }, [error]);
   return (
-    <Accordion>
-      {list.map((user) => (
-        <AccordionItem id={user.id.toString()} header={user.username}>
-          <UserInfo key={`user-${user.id}`} user={user} showSeePosts></UserInfo>
-        </AccordionItem>
-      ))}
-    </Accordion>
+    <div className={styles['container']}>
+      {loading ? (
+        <div className={styles['loading-wrapper']}>
+          <Spinner size="lg" />
+        </div>
+      ) : list?.length === 0 ? (
+        <NoData title="No users found" />
+      ) : (
+        <Accordion>
+          {list?.map((user) => (
+            <AccordionItem
+              key={user.id}
+              id={user.id.toString()}
+              header={user.username}
+            >
+              <UserInfo user={user} showSeePosts />
+            </AccordionItem>
+          ))}
+        </Accordion>
+      )}
+    </div>
   );
 };
 
