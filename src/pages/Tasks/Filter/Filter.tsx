@@ -10,13 +10,13 @@ interface FilterProps {
   delay?: number;
 }
 
-export const Filter: React.FC<FilterProps> = ({
+export const Filter = ({
   label = "Search",
   placeholder = "Type to filter...",
   initialValue = "",
   onChange,
   delay = 300,
-}) => {
+}: FilterProps) => {
   const [query, setQuery] = useState(initialValue);
   const [debouncedQuery, setDebouncedQuery] = useState(initialValue);
 

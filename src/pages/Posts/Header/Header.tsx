@@ -3,7 +3,7 @@ import { Button } from "../../../components/Button";
 
 import styles from "./Header.module.css";
 
-export const BackButton: React.FC = () => {
+export const BackButton = () => {
   const navigate = useNavigate();
 
   return (

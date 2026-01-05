@@ -6,10 +6,10 @@ interface AccordionProps {
   children: ReactNode;
 }
 
-export const Accordion: React.FC<AccordionProps> = ({
+export const Accordion = ({
   hasMultiOpenedItems = false,
   children,
-}) => {
+}: AccordionProps) => {
   return (
     <div className={styles["accordion"]}>
       <AccordionContentProvider hasMultiOpenedItems={hasMultiOpenedItems}>

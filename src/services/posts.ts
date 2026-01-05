@@ -2,6 +2,7 @@ import { postsApi } from "../api/posts";
 import type { Post } from "../models/post";
 import { handleApiError } from "../utils/handleApiError";
 
+
 export const postsService = {
   getByUserId: async (userId: number | string | undefined) => {
     if (!userId) {

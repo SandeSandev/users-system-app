@@ -7,11 +7,10 @@ interface AccordItemToggleButtonProps {
   rowId: string;
 }
 
-export const AccordItemToggleButton: React.FC<AccordItemToggleButtonProps> = ({
+export const AccordItemToggleButton = ({
   rowId,
-}) => {
+}: AccordItemToggleButtonProps) => {
   const { toggleAccordionRow, isRowExpanded } = useAccordionContentContext();
-
   return (
     <Button
       type="button"

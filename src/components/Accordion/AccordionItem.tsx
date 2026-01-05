@@ -9,13 +9,8 @@ interface AccordionItemProps {
   children: ReactNode;
 }
 
-export const AccordionItem: React.FC<AccordionItemProps> = ({
-  id,
-  header,
-  children,
-}) => {
+export const AccordionItem = ({ id, header, children }: AccordionItemProps) => {
   const { isRowExpanded, toggleAccordionRow } = useAccordionContentContext();
-
   return (
     <>
       <div

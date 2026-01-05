@@ -3,6 +3,10 @@ import styles from "./Table.module.css";
 import cn from "classnames";
 import { Pagination } from "./Pagination/Pagination";
 
+type RowWithOptionalId = {
+  id?: string | number;
+};
+
 export interface ColumnDef<T extends object> {
   id: keyof T & string;
   header: ReactNode;
@@ -62,8 +66,7 @@ export function Table<T extends object>({
 
           <tbody>
             {paginatedData.map((row, rowIndex) => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const key = "id" in row ? (row as any).id : `row-${rowIndex}`;
+              const key = "id" in row ? (row as RowWithOptionalId).id : `row-${rowIndex}`;
 
               return (
                 <tr key={key} className={styles["table-row"]}>

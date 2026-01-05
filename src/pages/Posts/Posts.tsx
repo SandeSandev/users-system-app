@@ -11,7 +11,8 @@ import { Spinner } from "../../components/Spinner/Spinner";
 import { BackButton } from "./Header/Header";
 import { handleApiError } from "../../utils/handleApiError";
 import { NoData } from "../../components/NoData/NoData";
-const Posts: React.FC = () => {
+
+const Posts = () => {
   const { userId } = useParams();
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);

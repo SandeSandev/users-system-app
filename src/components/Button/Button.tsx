@@ -15,7 +15,7 @@ interface ButtonProps {
   iconPosition?: "left" | "right";
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button  = ({
   variant = "normal",
   color = "primary",
   size = "md",
@@ -27,7 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
   icon,
   iconPosition = "left",
   ...props
-}) => {
+}: ButtonProps) => {
   const classes = cn(
     styles['btn'],
     styles[`btn-${color}`],

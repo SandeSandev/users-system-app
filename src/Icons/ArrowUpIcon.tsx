@@ -1,4 +1,5 @@
 import { Icon } from "../components/Icon/Icon";
+
 const ArrowUpIcon = (props: React.ComponentProps<typeof Icon>) => {
   return (
     <Icon {...props}>

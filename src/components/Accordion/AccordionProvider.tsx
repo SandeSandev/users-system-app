@@ -6,12 +6,11 @@ interface AccordionProviderProps {
   children: ReactNode;
 }
 
-export const AccordionContentProvider: React.FC<AccordionProviderProps> = ({
+export const AccordionContentProvider = ({
   hasMultiOpenedItems,
   children,
-}) => {
+}: AccordionProviderProps) => {
   const [activeRowIds, setActiveRowIds] = useState<Array<string | number>>([]);
-
   const toggleAccordionRow = (id: string) => {
     if (hasMultiOpenedItems) {
       setActiveRowIds((prevState) =>

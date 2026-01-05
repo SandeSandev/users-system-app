@@ -1,8 +1,11 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Tasks from "../pages/Tasks/Tasks";
+import { lazy } from "react";
 import { Layout } from "../components/Layout/Layout";
-import Users from "../pages/Users/Users";
-import Posts from "../pages/Posts/Posts";
+
+const Users = lazy(() => import("../pages/Users/Users"));
+const Posts = lazy(() => import("../pages/Posts/Posts"));
+const Tasks = lazy(() => import("../pages/Tasks/Tasks"));
+
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -10,14 +13,20 @@ export const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/users" replace />,
+        element: <Navigate to="users" replace />,
       },
       {
         path: "users",
         element: <Users />,
       },
-      { path: "posts/:userId", element: <Posts /> },
-      { path: "tasks", element: <Tasks /> },
+      {
+        path: "posts/:userId",
+        element: <Posts />,
+      },
+      {
+        path: "tasks",
+        element: <Tasks />,
+      },
     ],
   },
 ]);

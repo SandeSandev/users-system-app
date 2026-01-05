@@ -1,6 +1,6 @@
 import styles from "./ConfirmationModal.module.css";
 import { Button } from "../Button";
-interface Props {
+interface ConfirmationModalProps {
   title?: string;
   message?: string;
   onConfirm: () => void;
@@ -18,7 +18,7 @@ export const ConfirmationModal = ({
   confirmText = "Delete",
   cancelText = "Cancel",
   isLoading = false,
-}: Props) => {
+}: ConfirmationModalProps) => {
   return (
     <div className={styles["backdrop"]}>
       <div className={styles["modal"]}>

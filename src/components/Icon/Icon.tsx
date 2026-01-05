@@ -5,13 +5,13 @@ export interface IconProps {
   children?: React.ReactNode;
 }
 
-export const Icon: React.FC<IconProps> = ({
+export const Icon = ({
   size = 24,
   color,
   viewBox = " 0 0 24 24",
   children,
   ...rest
-}) => {
+}: IconProps) => {
   return (
     <svg
       width={size}

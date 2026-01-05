@@ -11,7 +11,7 @@ import { handleApiError } from "../../utils/handleApiError";
 import { Filter } from "./Filter/Filter";
 import { NoData } from "../../components/NoData/NoData";
 
-const Tasks: React.FC = () => {
+const Tasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoadingTasks, setIsLoadingTasks] = useState(true);
 

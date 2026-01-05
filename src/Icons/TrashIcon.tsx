@@ -1,4 +1,5 @@
 import { Icon } from "../components/Icon/Icon";
+
 const TrashIcon = (props: React.ComponentProps<typeof Icon>) => {
   return (
     <Icon {...props}>

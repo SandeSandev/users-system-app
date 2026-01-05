@@ -3,13 +3,13 @@ import styles from "./FormActionBar.module.css";
 import { Button } from "../../Button";
 import PeniclIcon from "../../../Icons/PencilIcon";
 
-interface Props {
+interface FormActionBarProps {
   isEditing: boolean;
   onClickEdit: () => void;
   onCancel: () => void;
 }
 
-export const FormActionBar = ({ isEditing, onClickEdit, onCancel }: Props) => {
+export const FormActionBar = ({ isEditing, onClickEdit, onCancel }: FormActionBarProps) => {
   const { dirty, isSubmitting, resetForm, submitForm } =
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     useFormikContext<any>();

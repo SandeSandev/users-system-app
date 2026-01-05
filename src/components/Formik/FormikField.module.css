@@ -11,7 +11,7 @@
 .field label {
   font-weight: 600;
   color: #333;
-  margin-top: 8px; /* подравнява визуално */
+  margin-top: 8px;
 }
 
 .field-control {

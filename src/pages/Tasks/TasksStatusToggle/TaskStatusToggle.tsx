@@ -1,12 +1,14 @@
-import React from "react";
 import styles from "./TaskStatusToggle.module.css";
 
-interface Props {
+interface TaskStatusToggleProps {
   completed: boolean;
   onToggle: (newValue: boolean) => void;
 }
 
-export const TaskStatusToggle: React.FC<Props> = ({ completed, onToggle }) => {
+export const TaskStatusToggle = ({
+  completed,
+  onToggle,
+}: TaskStatusToggleProps) => {
   return (
     <button
       className={`${styles["toggle"]} ${

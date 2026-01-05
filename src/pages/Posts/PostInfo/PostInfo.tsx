@@ -25,11 +25,7 @@ interface PostFormValues {
   body: string;
 }
 
-export const PostInfo: React.FC<PostInfoProps> = ({
-  post,
-  onUpdate,
-  onDelete,
-}) => {
+export const PostInfo = ({ post, onUpdate, onDelete }: PostInfoProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 

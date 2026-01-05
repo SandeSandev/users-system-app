@@ -1,7 +1,7 @@
 import { Field, ErrorMessage, type FieldInputProps } from "formik";
 import styles from "./FormikField.module.css";
 
-interface Props {
+interface FormikFieldProps {
   label: string;
   fieldName: string;
   isEditing?: boolean;
@@ -15,7 +15,7 @@ export const FormikField = ({
   isEditing = false,
   as = "input",
   rows = 4,
-}: Props) => {
+}: FormikFieldProps) => {
   return (
     <div className={styles['field']}>
       <label htmlFor={fieldName}>{label}:</label>

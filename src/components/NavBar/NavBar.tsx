@@ -2,7 +2,8 @@ import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import appLogo from "./../../assets/app-logo.png";
 import cn from "classnames";
-export const NavBar: React.FC = () => {
+
+export const NavBar = () => {
   return (
     <nav className={styles["navbar"]}>
       <img
